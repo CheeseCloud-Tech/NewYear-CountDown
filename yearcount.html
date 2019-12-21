@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>春节倒计时</title>
+<script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<style>
+/*
+Base Reset CSS
+ */
+* {
+	margin:0;
+	padding:0;
+}
+html,body {
+	height:100%;
+}
+body {
+	font-family:"Microsoft Yahei";
+	background:url(https://tgi13.jia.com/114/929/14929249.jpg) no-repeat;
+	background-size:cover;
+	background-position:center center;
+	background-attachment:fixed;
+}
+a {
+	text-decoration:none;
+}
+ul,li {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+/*
+Common
+ */
+.container h1 {
+	color:#333;
+	font-weight:100;
+	background:rgba(255,255,255,.5);
+	text-align:center;
+}
+.container ul li {
+	font-size:60px;
+	font-weight:100;
+	color:#fff;
+	border-radius:10px;
+	text-align:center;
+}
+.container ul li:nth-child(1) {
+	background:rgba(255,102,102,.7);
+}
+.container ul li:nth-child(2) {
+	background:rgba(0,204,153,.75);
+}
+.container ul li:nth-child(3) {
+	background:rgba(204,153,204,.55);
+}
+.container ul li:nth-child(4) {
+	background:rgba(255,255,255,.2);
+}
+sub {
+	font-weight:400;
+	font-size:15px;
+}
+/*
+PC适配,width>=992px
+ */
+@media (min-width:992px) {
+	.container {
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin:-240px 0 0 -480px;
+	width:960px;
+	height:480px;
+	text-align:center;
+	background:rgba(0,0,0,.3);
+	border-radius:10px;
+	transition:all 0.5s;
+}
+.container h1 {
+	margin:50px 0;
+	padding:20px;
+	font-size:40px;
+}
+.container ul {
+	overflow:auto;
+}
+.container ul li {
+	display:inline-block;
+	width:180px;
+	height:180px;
+	line-height:180px;
+	font-size:60px;
+	font-weight:100;
+	color:#fff;
+	border-radius:10px;
+}
+.container ul li:nth-child(2) {
+	margin:0 15px;
+}
+.container ul li:nth-child(3) {
+	margin:0 15px 0 0;
+}
+}/*
+平板适配,768px=</style>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+</head>
+<body>
+<div class="container">
+  <h1>距离2020年春节还有：</h1>
+  <ul>
+    <li><span id="day"></span><sub>天</sub></li>
+    <li><span id="hour"></span><sub>时</sub></li>
+    <li><span id="min"></span><sub>分</sub></li>
+    <li><span id="sec"></span><sub>秒</sub></li>
+  </ul>
+</div>
+
+<script>
+//获取封装id
+function $(id) {
+    return typeof id === 'string' ? document.getElementById(id) : id;
+}
+
+/**
+	 * [checkTime description]
+	 */
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+/**
+	 * [showTime description]
+	 * @return {[type]} [展示时间]
+	 */
+function showTime() {
+    var curtime = new Date(); //现在时间
+    var endtime = new Date("2020/1/25,00:00:00"); //大年初一
+    var leftTime = (endtime.getTime() - curtime.getTime()) / 1000; //设定毫秒时间
+    var leftDay = parseInt(leftTime / (24 * 60 * 60)); //计算剩余天数
+    var leftHour = parseInt(leftTime / (60 * 60) % 24); //计算剩余小时
+    var leftMin = parseInt(leftTime / 60 % 60); //计算剩余分钟
+    var leftSec = parseInt(leftTime % 60); //计算剩余秒
+    $('day').innerHTML = checkTime(leftDay);
+    $('hour').innerHTML = checkTime(leftHour);
+    $('min').innerHTML = checkTime(leftMin);
+    $('sec').innerHTML = checkTime(leftSec);
+    if (leftTime <= 0) {
+        $('title').innerHTML = "再见2019，2020你好";//设定标题为
+        $('day').innerHTML = 0;
+        $('hour').innerHTML = 0;
+        $('min').innerHTML = 0;
+        $('sec').innerHTML = 0;
+    }
+    setTimeout(showTime, 1000);
+}
+showTime();
+</script>
+
+</body>
+</html>
